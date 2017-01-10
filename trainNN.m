@@ -1,4 +1,4 @@
-function [w,w_b] = trainNN(data,label,epoch,specs)
+function [w,w_b] = trainNN(data,label,epoch,eta,specs)
 
     layers_count = length(specs);
     
@@ -33,8 +33,8 @@ function [w,w_b] = trainNN(data,label,epoch,specs)
             
             % update
             for k=1:length(w)                
-                w{k} = w{k} + l{k}' * d{k};
-                w_b{k} = w_b{k} + nonlin(1 * w_b{k}) .* d{k};
+                w{k} = w{k} + eta .* (l{k}' * d{k});
+                w_b{k} = w_b{k} + eta .* (nonlin(1 * w_b{k}) .* d{k});
             end
         end        
     end
